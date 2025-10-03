@@ -47,3 +47,6 @@ export interface AppState {
   projects: Project[];
   tasks: Task[];
 }
+
+
+export const TypeCheck = 0;

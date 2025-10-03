@@ -1,5 +1,5 @@
 
-import ThemeToggle from './components/ThemeToggle';
+/*import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   return (
@@ -23,6 +23,17 @@ function App() {
       </main>
       
     </div>
+  );
+}
+
+export default App;*/
+
+
+import AppRoutes from './AppRoutes';
+
+function App() {
+  return (
+    <AppRoutes />
   );
 }
 
