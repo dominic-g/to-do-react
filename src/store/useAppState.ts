@@ -1,6 +1,32 @@
 import { create } from 'zustand';
-import { persist, StateStorage } from 'zustand/middleware';
-import { AppState, Project, Task, TaskStatus, ProjectStatus, TaskPriority, TypeCheck } from '../types';
+// import { persist, StateStorage } from 'zustand/middleware';
+
+
+import { persist } from 'zustand/middleware'; 
+import type { StateStorage } from 'zustand/middleware'; 
+
+
+/*import type { 
+    AppState, 
+    Project, 
+    Task, 
+    TaskStatus, 
+    ProjectStatus, 
+    TaskPriority 
+} from '../types.ts';*/
+
+
+import type { 
+    AppState, 
+    Project, 
+    Task 
+} from '../types'; 
+
+import { 
+    TaskStatus, 
+    ProjectStatus, 
+    TaskPriority 
+} from '../types'
 
 // --- LocalStorage Date Handling ---
 // Zustand's persist middleware saves Dates as strings. We must convert them back 

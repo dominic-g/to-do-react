@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAppState } from '../store/useAppState';
+import { TaskStatus } from '../types';
 
 const GlobalDashboard: React.FC = () => {
   const { projects, tasks } = useAppState();

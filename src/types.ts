@@ -43,7 +43,11 @@ export interface Project {
 }
 
 // --- GLOBAL APP STATE INTERFACE (For Zustand) ---
-export interface AppState {
+// export interface AppStates {
+//   projects: Project[];
+//   tasks: Task[];
+// }
+export interface AppStates {
   projects: Project[];
   tasks: Task[];
 }
