@@ -18,18 +18,30 @@ export enum ProjectStatus {
   Complete = 'Complete',
 }
 
+// --- NEW ENUM: Task Category ---
+export enum TaskType {
+  Bug = 'Bug',
+  NewFeature = 'New Feature',
+  Research = 'Research',
+  Documentation = 'Documentation',
+  Maintenance = 'Maintenance',
+}
+
+
 // --- TASK INTERFACE ---
 export interface Task {
   id: string; 
-  projectId: string; // Link to parent project
+  projectId: string; 
   title: string;
   description: string;
   status: TaskStatus;
   priority: TaskPriority;
+  type: TaskType;
   dueDate: Date; 
   startDate: Date; 
   createdAt: Date;
 }
+
 
 // --- PROJECT INTERFACE ---
 export interface Project {
@@ -42,15 +54,59 @@ export interface Project {
   endDate: Date;
 }
 
-// --- GLOBAL APP STATE INTERFACE (For Zustand) ---
-// export interface AppStates {
-//   projects: Project[];
-//   tasks: Task[];
-// }
-export interface AppStates {
-  projects: Project[];
-  tasks: Task[];
+// --- NEW INTERFACE: INVOICE ---
+export enum PaymentStatus {
+  Overdue = 'Overdue',
+  NotPaid = 'Not Paid',
+  Partial = 'Partial',
+  FullyPaid = 'Fully Paid',
 }
 
+export interface Invoice {
+  id: string;
+  projectId: string;
+  title: string;
+  totalAmount: number;
+  amountPaid: number;
+  dueDate: Date;
+  status: PaymentStatus;
+  notes: string;
+}
+
+// --- NEW INTERFACE: EXPENSE ---
+export interface Expense {
+  id: string;
+  projectId: string;
+  title: string;
+  amount: number;
+  date: Date;
+  category: string; // e.g., 'Hosting', 'Software Subscription'
+}
+
+// --- NEW INTERFACE: TICKET ---
+export enum TicketStatus {
+  New = 'New',
+  InProgress = 'In Progress',
+  OnHold = 'On Hold',
+  Resolved = 'Resolved',
+}
+
+export interface Ticket {
+  id: string;
+  projectId: string;
+  title: string;
+  status: TicketStatus;
+  priority: TaskPriority;
+  createdAt: Date;
+}
+
+// --- GLOBAL APP STATE INTERFACE (UPDATED) ---
+export interface AppState {
+  projects: Project[];
+  tasks: Task[];
+  invoices: Invoice[]; 
+  expenses: Expense[]; 
+  tickets: Ticket[];   
+}
 
 export const TypeCheck = 0;
