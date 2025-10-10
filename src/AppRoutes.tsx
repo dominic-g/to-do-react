@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import MainLayout from './components/layout/MainLayout';
 import GlobalDashboard from './pages/GlobalDashboard';
 import ProjectView from './pages/ProjectView';
+import ClientManagement from './pages/ClientManagement'; 
 
 const AppRoutes: React.FC = () => {
   return (
@@ -15,6 +16,9 @@ const AppRoutes: React.FC = () => {
           
           {/* Global Dashboard (with graphs, overall status) */}
           <Route path="dashboard" element={<GlobalDashboard />} />
+          
+          {/* Client Management */}
+          <Route path="clients/*" element={<ClientManagement />} /> {/* <--- NEW ROUTE */}
           
           {/* Project View (for Kanban, List, and Project Dashboard) */}
           <Route path="projects/:projectId/*" element={<ProjectView />} />

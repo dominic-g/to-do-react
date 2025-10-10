@@ -42,10 +42,10 @@ export interface Task {
   createdAt: Date;
 }
 
-
 // --- PROJECT INTERFACE ---
 export interface Project {
   id: string; 
+  clientId: string;
   name: string;
   description: string;
   status: ProjectStatus;
@@ -100,13 +100,25 @@ export interface Ticket {
   createdAt: Date;
 }
 
-// --- GLOBAL APP STATE INTERFACE (UPDATED) ---
+
+export interface Client {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  telegram?: string;
+}
+
+
+// --- GLOBAL APP STATE INTERFACE ---
 export interface AppState {
   projects: Project[];
   tasks: Task[];
-  invoices: Invoice[]; 
-  expenses: Expense[]; 
-  tickets: Ticket[];   
+  invoices: Invoice[];
+  expenses: Expense[];
+  tickets: Ticket[];
+  clients: Client[]; 
 }
 
 export const TypeCheck = 0;

@@ -4,8 +4,8 @@ import { create } from 'zustand';
 
 import { persist } from 'zustand/middleware'; 
 import type { StateStorage } from 'zustand/middleware'; 
-import type { AppState, Project, Task, Invoice, Expense, Ticket } from '../types';
 import { TaskStatus, ProjectStatus, TaskPriority, TaskType, PaymentStatus, TicketStatus } from '../types'; 
+import type { AppState, Project, Task, Invoice, Expense, Ticket, Client } from '../types';
 
 
 const dateStorage: StateStorage = {
@@ -45,7 +45,8 @@ const dateStorage: StateStorage = {
 
 // --- INITIAL STATE ---
 // Create some dummy data for initial load
-const projectId = 'p-initial-project';
+const clientId = 'c-acme-solutions';
+const projectId = 'p-website-redesign';
 const initialDate = new Date();
 const tomorrow = new Date(initialDate);
 tomorrow.setDate(initialDate.getDate() + 1);
@@ -53,16 +54,27 @@ const overdueDate = new Date();
 overdueDate.setDate(initialDate.getDate() - 5); 
 
 const initialState: AppState = {
+
+  clients: [
+    {
+      id: clientId,
+      name: 'Acme Solutions Inc.',
+      email: 'contact@acme.com',
+      phone: '555-0101',
+      address: '123 Main St, Anytown',
+      telegram: '@acme_support',
+    }
+  ],
   projects: [
     {
       id: projectId,
+      clientId: clientId,
       name: 'Website Redesign',
       description: 'The main project for Q4 goals and new feature rollouts.',
       status: ProjectStatus.Active,
       tasks: ['t-1', 't-2', 't-3', 't-4'],
       startDate: initialDate,
       endDate: new Date(initialDate.getTime() + 30 * 24 * 60 * 60 * 1000),
-      // endDate: new Date(initialDate.setDate(initialDate.getDate() + 30)),
     }
   ],
   tasks: [
@@ -147,6 +159,7 @@ const initialState: AppState = {
 
 // --- ACTIONS INTERFACE (CRUD) ---
 interface AppActions {
+  addClient: (client: Omit<Client, 'id'>) => void;
   // Project Actions
   addProject: (project: Omit<Project, 'id' | 'tasks'>) => void;
   // Task Actions
@@ -167,6 +180,15 @@ export const useAppState = create<AppState & AppActions>()(
   persist(
     (set, get) => ({
       ...initialState,
+
+      // --- NEW CLIENT ACTION ---
+      addClient: (newClientData) => {
+        const newClient: Client = {
+            ...newClientData,
+            id: `c-${Date.now()}`, 
+        };
+        set((state) => ({ clients: [...state.clients, newClient] }));
+      },
 
       // --- PROJECT ACTIONS ---
       addProject: (newProjectData) => {

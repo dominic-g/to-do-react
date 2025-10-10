@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useAppState } from '../../store/useAppState';
-import { LayoutDashboard, Folder, Plus } from 'lucide-react'; 
+import { LayoutDashboard, Folder, Plus, Users, Settings } from 'lucide-react'; 
 
 
 // Define Props for the toggle logic
@@ -12,6 +12,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
   const { projects } = useAppState();
   const { projectId: currentProjectId } = useParams();
+
+  const isActive = (path: string) => window.location.pathname.startsWith(path);
 
   return (
     <>
@@ -46,6 +48,24 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
             <span>Dashboard</span>
           </div>
         </Link>
+
+        {/* NEW: Clients Link */}
+        <Link 
+          to="/clients"
+          className={`px-3 py-2 rounded-lg mb-2 transition-colors duration-200 
+                      font-medium text-gray-700 dark:text-gray-300
+                      hover:bg-primary-accent/20 dark:hover:bg-primary-accent/30
+                      ${isActive('/clients') ? 'bg-primary-accent text-white dark:bg-primary-accent' : ''}`}
+          onClick={toggle}
+        >
+          <div className="flex items-center space-x-2">
+              <Users className="h-5 w-5" />
+              <span>Clients</span>
+          </div>
+        </Link>
+
+        <h3 className="text-sm font-semibold mt-4 mb-2 uppercase text-gray-500 dark:text-gray-400">Projects</h3>
+        
         <ul className="space-y-1 mt-4 flex-grow overflow-y-auto">
           {projects.map((project) => (
             <li key={project.id}>
@@ -65,6 +85,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
             </li>
           ))}
         </ul>
+      
+        {/* Settings Link (for a final professional touch) */}
+        <div className="mt-auto pt-4 border-t border-gray-200 dark:border-zinc-700">
+            <Link 
+              to="/settings"
+              className="px-3 py-2 rounded-lg transition-colors duration-200 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 block"
+              onClick={toggle}
+            >
+              <div className="flex items-center space-x-2">
+                  <Settings className="h-5 w-5" />
+                  <span>Settings</span>
+              </div>
+            </Link>
+        </div>
         
         <button className="mt-4 w-full py-2 rounded-lg bg-primary-accent hover:bg-blue-600 text-white font-semibold transition-colors flex items-center justify-center">
           <Plus className="h-5 w-5" />

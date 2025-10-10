@@ -165,7 +165,7 @@ const GlobalDashboard: React.FC = () => {
       </div>
 
       {/* ROW 2: PROJECT OVERVIEW & INVOICE / EXPENSE CHARTS */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* COLUMN 1: Projects Overview (RISE STYLE) */}
         <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg">
@@ -240,7 +240,33 @@ const GlobalDashboard: React.FC = () => {
 
         </div>
 
-        {/* COLUMN 3: Income vs Expenses (RISE STYLE) */}
+       </div>
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6"> 
+
+        
+        {/* COLUMN 1: All Tasks Overview (DOUGHNUT - RISE STYLE) */}
+        <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg h-96">
+            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">All Tasks Overview</h3>
+            <ResponsiveContainer width="100%" height="80%">
+                <PieChart>
+                    <Pie
+                        data={taskOverviewData}
+                        innerRadius={60}
+                        outerRadius={90}
+                        paddingAngle={5}
+                        dataKey="value"
+                        nameKey="name"
+                    >
+                        {taskOverviewData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                    </Pie>
+                    <Tooltip contentStyle={{ backgroundColor: 'rgb(24 24 27)', border: 'none' }} />
+                    <Legend iconType="circle" layout="vertical" align="right" verticalAlign="middle" />
+                </PieChart>
+            </ResponsiveContainer>
+        </div>
+        {/* COLUMN 2: Income vs Expenses (RISE STYLE) */}
         <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Income vs Expenses</h3>
             
@@ -282,33 +308,11 @@ const GlobalDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* ROW 3: TASK LISTS & TASK OVERVIEW */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      {/* ROW 3: TASK LISTS  */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* COLUMN 1: All Tasks Overview (DOUGHNUT - RISE STYLE) */}
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg h-96">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">All Tasks Overview</h3>
-            <ResponsiveContainer width="100%" height="80%">
-                <PieChart>
-                    <Pie
-                        data={taskOverviewData}
-                        innerRadius={60}
-                        outerRadius={90}
-                        paddingAngle={5}
-                        dataKey="value"
-                        nameKey="name"
-                    >
-                        {taskOverviewData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                    </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: 'rgb(24 24 27)', border: 'none' }} />
-                    <Legend iconType="circle" layout="vertical" align="right" verticalAlign="middle" />
-                </PieChart>
-            </ResponsiveContainer>
-        </div>
         
-        {/* COLUMNS 2, 3, 4: Filtered Task Lists (RISE STYLE) */}
+        {/* COLUMNS 1, 2, 3: Filtered Task Lists (RISE STYLE) */}
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
             <ListCard title="Upcoming Start" >
                 {upcomingTasks.length > 0 ? (
@@ -379,42 +383,6 @@ const GlobalDashboard: React.FC = () => {
             </LineChart>
         </ResponsiveContainer>
       </div>
-
-      {/* ROW 6: FILTERED TASK LISTS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Upcoming Deadlines */}
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Upcoming Deadlines</h3>
-            {tasksDueSoon.length > 0 ? (
-                tasksDueSoon.map(task => <TaskListItem key={task.id} task={task} />)
-            ) : (
-                <p className="text-gray-500 dark:text-gray-400 mt-2">No deadlines in the next 7 days.</p>
-            )}
-        </div>
-
-        {/* Overdue/Unmet Deadlines */}
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Unmet Deadlines</h3>
-            {overdueTasks.length > 0 ? (
-                overdueTasks.map(task => <TaskListItem key={task.id} task={task} />)
-            ) : (
-                <p className="text-gray-500 dark:text-gray-400 mt-2">All deadlines are current!</p>
-            )}
-        </div>
-
-        {/* Unfinished Tasks (All) */}
-        <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">All Unfinished Tasks</h3>
-            {unfinishedTasks.length > 0 ? (
-                unfinishedTasks.map(task => <TaskListItem key={task.id} task={task} />)
-            ) : (
-                <p className="text-gray-500 dark:text-gray-400 mt-2">All tasks are complete! 🎉</p>
-            )}
-        </div>
-      </div>
-
-
 
     </div>
   );
