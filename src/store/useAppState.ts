@@ -1,7 +1,4 @@
 import { create } from 'zustand';
-// import { persist, StateStorage } from 'zustand/middleware';
-
-
 import { persist } from 'zustand/middleware'; 
 import type { StateStorage } from 'zustand/middleware'; 
 import { TaskStatus, ProjectStatus, TaskPriority, TaskType, PaymentStatus, TicketStatus } from '../types'; 
@@ -44,7 +41,6 @@ const dateStorage: StateStorage = {
 
 
 // --- INITIAL STATE ---
-// Create some dummy data for initial load
 const clientId = 'c-acme-solutions';
 const projectId = 'p-website-redesign';
 const initialDate = new Date();
@@ -65,6 +61,12 @@ const initialState: AppState = {
       telegram: '@acme_support',
     }
   ],
+  filters: {
+      projectId: null,
+      dateRange: '30days',
+      startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+      endDate: new Date(),
+  },
   projects: [
     {
       id: projectId,
@@ -169,7 +171,7 @@ interface AppActions {
   updateInvoicePayment: (invoiceId: string, amount: number, notes?: string) => void;
   // Ticket Actions
   updateTicketStatus: (ticketId: string, newStatus: TicketStatus) => void;
-  
+  setFilter: (updates: Partial<FilterState>) => void;
   // Global Actions
   importState: (newState: AppState) => void;
 }
@@ -198,6 +200,16 @@ export const useAppState = create<AppState & AppActions>()(
             tasks: [],
         };
         set((state) => ({ projects: [...state.projects, newProject] }));
+      },
+      
+      // --- NEW FILTER ACTION ---
+      setFilter: (updates) => {
+        set(state => ({
+            filters: {
+                ...state.filters,
+                ...updates
+            }
+        }));
       },
       
       // --- TASK ACTIONS ---

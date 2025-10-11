@@ -119,6 +119,17 @@ export interface AppState {
   expenses: Expense[];
   tickets: Ticket[];
   clients: Client[]; 
+  filters: FilterState; 
+}
+
+
+export type FilterDateRange = '30days' | '7days' | '90days' | 'custom';
+
+export interface FilterState {
+    projectId: string | null;
+    dateRange: FilterDateRange;
+    startDate: Date | null;
+    endDate: Date | null;
 }
 
 export const TypeCheck = 0;

@@ -1,3 +1,11 @@
+/* @tailwind safelist 
+   border-blue-500 border-yellow-500 border-red-500 border-emerald-500 border-purple-500
+   bg-blue-100 bg-yellow-100 bg-red-100 bg-emerald-100 bg-purple-100
+   dark:bg-blue-900 dark:bg-yellow-900 dark:bg-red-900 dark:bg-emerald-900 dark:bg-purple-900
+   text-blue-500 text-yellow-500 text-red-500 text-emerald-500 text-purple-500
+   dark:text-blue-300 dark:text-yellow-300 dark:text-red-300 dark:text-emerald-300 dark:text-purple-300
+   bg-gray-500 bg-yellow-500 bg-red-500
+*/
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
