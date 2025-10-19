@@ -1,2 +1,4 @@
 # to-do-react
-A sleek and interactive Kanban-style task management app built with React, featuring drag-and-drop, persistent storage, theme switching, and a responsive layout
+A sleek and interactive Kanban-style task management app built with React + Vite, featuring drag-and-drop, persistent storage, theme switching, and a responsive layout
+
+
